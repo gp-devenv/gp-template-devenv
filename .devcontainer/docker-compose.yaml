@@ -1,0 +1,40 @@
+#
+# gp-template-devenv
+# Copyright (c) 2023-2024, Greg PFISTER. MIT License.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+
+name: gp-template-devenv
+
+# Services
+services:
+  gp-template-devenv:
+    container_name: gp-template-devenv
+    user: vscode
+    privileged: true
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ..:/workspace
+      - gp-template-devenv-home:/home
+      - gp-template-devenv-docker-data:/var/lib/docker
+    networks:
+      - gp-devenv-net
+
+volumes:
+  gp-template-devenv-home:
+    name: gp-template-devenv-home
+  gp-template-devenv-docker-data:
+    name: gp-template-devenv-docker-data
+
+networks:
+  gp-devenv-net:
+    name: gp-devenv-net
